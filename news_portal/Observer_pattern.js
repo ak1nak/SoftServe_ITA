@@ -34,7 +34,7 @@ class News{
         this._users.forEach(subscriber => subscriber(data));
     }
     once(cb) {
-    // return this.subscribe(cb).then(cb(data)).then(this.unsubscribe(cb));
+    // return this.subscribe(cb).then(this.unsubscribe(cb));
     }
     subsList() {
         console.log(this._users);
