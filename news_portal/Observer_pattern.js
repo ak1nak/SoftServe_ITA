@@ -6,13 +6,22 @@ class News{
     }
     subscribe(cb) {
         this._users.push(cb);
+        /*
+        return new Promise((resolve, reject) => {
+            this._users.push(cb);
+        });
+        */
     }
     subscribeAll(...rest) {
         this._users = this._users.concat(rest);
     }
     unsubscribe(cb) {
         this._users = this._users.filter(subscriber => subscriber !== cb);
-
+        /*
+        return new Promise((resolve, reject) => {
+            this._users = this._users.filter(subscriber => subscriber !== cb);
+        });
+        */
         //*через splice*
         //this._cbIndex = this._users.indexOf(cb);
         //this._users.splice(this._cbIndex, 1);
@@ -25,7 +34,7 @@ class News{
         this._users.forEach(subscriber => subscriber(data));
     }
     once(cb) {
-    
+    // return this.subscribe(cb).then(cb(data)).then(this.unsubscribe(cb));
     }
     subsList() {
         console.log(this._users);
@@ -52,7 +61,7 @@ const gamer5 = new User('Hanna', 'MMORPG');
 gameNews.subscribe(gamer1.readNews);
 gameNews.subscribe(gamer2.readNews);
 
-gameNews.subscribeAll(gamer3.readNews, gamer4.readNews, gamer5.readNews);
+gameNews.subscribeAll(gamer3.readNews, gamer4.readNews);
 
 gameNews.sendNews('Half-life 3 is coming!');
 
@@ -61,3 +70,8 @@ gameNews.unsubscribe(gamer1.readNews);
 gameNews.subsList();
 
 gameNews.sendNews('Half-life 3 is not coming! LUL. ');
+gameNews.subsList();
+
+//gameNews.once(gamer5.readNews);
+//gameNews.subsList();
+
