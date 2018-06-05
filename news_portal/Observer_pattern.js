@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 class News{
     constructor() {
@@ -6,35 +6,21 @@ class News{
     }
     subscribe(cb) {
         this._users.push(cb);
-        /*
-        return new Promise((resolve, reject) => {
-            this._users.push(cb);
-        });
-        */
+
     }
     subscribeAll(...rest) {
         this._users = this._users.concat(rest);
     }
     unsubscribe(cb) {
         this._users = this._users.filter(subscriber => subscriber !== cb);
-        /*
-        return new Promise((resolve, reject) => {
-            this._users = this._users.filter(subscriber => subscriber !== cb);
-        });
-        */
+
         //*через splice*
         //this._cbIndex = this._users.indexOf(cb);
         //this._users.splice(this._cbIndex, 1);
 
-        //*быдло-способ :)*
-        //this._cbIndex = this._users.indexOf(cb);
-        //delete this._users[this._cbIndex];
     }
     sendNews(data) {
         this._users.forEach(subscriber => subscriber(data));
-    }
-    once(cb) {
-    // return this.subscribe(cb).then(this.unsubscribe(cb));
     }
     subsList() {
         console.log(this._users);
