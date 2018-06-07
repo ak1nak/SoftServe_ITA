@@ -18,12 +18,11 @@ class News {
         } else {
             console.log(`There is no ${genre}`);
         }
-        /*
-        if(gen.length === 0) {
-            Object.defineProperty(this._users, gen, {configurable : true});
-            delete gen;
+        
+        if(this._users[genre].length === 0) {
+            delete this._users[genre];
          }
-        */
+        
         // гадский use strict не любит delete :(
         //  стоит ли делать gen = undefined;  ?
     }
