@@ -1,44 +1,28 @@
 "use strict";
 
-const usersList = require('./users.js');
-
 module.exports = class News {
-    constructor() {
-        this._subscribers = {};
-        this._news = [];
+    constructor(newsId, newsName) {
+        this._newsId = newsId;
+        this._newsName = newsName;
+        this._subscribers = [];
+        this._articles = [];
     }
-    subscribe(news_id, id) {
-        if(!this._subscribers[id]) {
-            this._subscribers[id] = [];
+    subscribe(cb) {
+        if(this._subscribers[cb]) {
+            throw new Error('Already exists..');
         }
-        this._subscribers[id].push(usersList.id);
+        this._subscribers.push(cb);
     }
-    unsubscribe(news_id, id) {
-        const gen = this._subscribers[id];
-        if(gen) {
-            this._subscribers[id] = gen.filter(subscriber => subscriber !== id);
+    unsubscribe(cb) {
+        if(this._subscribers.includes(cb)) {
+            this._subscribers = this._subscribers.filter(subscriber => subscriber !== cb);
         } else {
-            console.log(`There is no ${id}`);
+            throw new Error('There is no such subscriber..');
         }
-        
-        if(this._subscribers[id].length === 0) {
-            delete this._subscribers[id];
-        }
-    }
-    showNewsById(news_id) {
-        return this._news[news_id];
-    }
-    generateNews(news_id, data) {
-        this._news[news_id] = data;
-    }
-    /*sendNews(id, data) {
-        const gen = this._subscribers[id];
-        if(gen) {
-            gen.forEach(subscriber => subscriber.call(null, data));
-        } else {
-            console.log(`There is no ${id}`);
-        }
-    }*/
-    
-   
+    }    
+    createArticle(title) {
+        let article = {title : `${title}`, message : `${Math.random()}`};
+        this._articles.push(article);
+        this._subscribers.forEach(subscriber => subscriber(article));
+    }   
 }
