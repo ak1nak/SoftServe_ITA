@@ -6,6 +6,7 @@ module.exports = class User {
         this.name = name;
         this.readNews = this.readNews.bind(this);
         this.articles = [];
+        this.subscription = [];
     }
     readNews(data) {
         this.articles.push(data);
@@ -13,4 +14,3 @@ module.exports = class User {
         
     }
 }
-

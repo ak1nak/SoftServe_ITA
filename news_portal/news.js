@@ -2,27 +2,27 @@
 
 module.exports = class News {
     constructor(newsId, newsName) {
-        this._newsId = newsId;
-        this._newsName = newsName;
-        this._subscribers = [];
-        this._articles = [];
+        this.newsId = newsId;
+        this.newsName = newsName;
+        this.subscribers = [];
+        this.articles = [];
     }
     subscribe(cb) {
-        if(this._subscribers[cb]) {
+        if(this.subscribers[cb]) {
             throw new Error('Already exists..');
         }
-        this._subscribers.push(cb);
+        this.subscribers.push(cb);
     }
     unsubscribe(cb) {
-        if(this._subscribers.includes(cb)) {
-            this._subscribers = this._subscribers.filter(subscriber => subscriber !== cb);
+        if(this.subscribers.includes(cb)) {
+            this.subscribers = this.subscribers.filter(subscriber => subscriber !== cb);
         } else {
             throw new Error('There is no such subscriber..');
         }
     }    
     createArticle(title) {
         let article = {title : `${title}`, message : `${Math.random()}`};
-        this._articles.push(article);
-        this._subscribers.forEach(subscriber => subscriber(article));
+        this.articles.push(article);
+        this.subscribers.forEach(subscriber => subscriber(article));
     }   
 }
