@@ -10,7 +10,7 @@ module.exports = class User {
     }
     readNews(data) {
         this.articles.push(data);
-        console.log(data, ` ${this.name} got it!`);
+        console.log(data, ` ${this.name} got this update!`);
         
     }
 }

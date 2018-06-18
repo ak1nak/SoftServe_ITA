@@ -43,8 +43,7 @@ const server = http.createServer((req, res) => {
 
     let _req = req.url.split('/'); 
     let nl2 = newsList[_req[2]]; let ul2 = usersList[_req[2]]; let ul4 = usersList[_req[4]];
-    console.log(_req.length);
-
+    
     if (_req[1] ==='news' && _req[3] === 'subscribe') {        
             res.writeHead(200, { "Content-Type": "text/plain" });
             nl2.subscribe(ul4.readNews);
